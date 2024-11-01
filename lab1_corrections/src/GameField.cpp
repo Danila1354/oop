@@ -90,7 +90,7 @@ void GameField::show() {
     std::cout << '\n';
 }
 
-bool GameField::checkCollide(int x, int y,Ship* pointer_to_ship) {
+bool GameField::checkCollide(int x, int y) {
     int row_above = y-1;
     int row_below = y+1;
     int left_col = x-1;
@@ -100,7 +100,7 @@ bool GameField::checkCollide(int x, int y,Ship* pointer_to_ship) {
             if ((j == x && i == y) || (j<0 || i<0 || i>=height || j>=width))
                 continue;
             else{
-                if (field[i][j].getStatus() == Status::Occupied && pointer_to_ship != field[i][j].getPointerToShip())
+                if (field[i][j].getStatus() == Status::Occupied)
                     return false;
             }
         }
@@ -139,7 +139,7 @@ void GameField::placeShip(Ship &ship, int x, int y, bool is_vertical) {
             std::cerr<<"Ship can not be placed. Coordinates are out of bounds"<<'\n';
             return;
         }
-        if (!checkCollide(x_coord, y_coord,&ship)) {
+        if (!checkCollide(x_coord, y_coord)) {
             std::cerr << "Ships collide\n";
             return;
         }

@@ -14,7 +14,7 @@ private:
     int height;
     int number_of_deployed_ships;
 
-    bool checkCollide(int x, int y,Ship* pointer_to_ship);
+    bool checkCollide(int x, int y);
 
     bool checkCoords(int x, int y);
 
