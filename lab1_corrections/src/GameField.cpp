@@ -129,26 +129,22 @@ void GameField::placeShip(Ship &ship, int x, int y, bool is_vertical) {
     int x_coord, y_coord;
     for (int i = 0; i < ship_length; i++) {
         if (is_vertical) {
-            if (!checkCoords(x,y + i)) {
-                std::cerr << "Ship can not be placed. Y coordinate is out of bounds" << '\n';
-                return;
-            }
             x_coord = x;
             y_coord = y + i;
         } else {
-            if (!checkCoords(x + i,y)) {
-                std::cerr << "Ship can not be placed. X coordinate is out of bounds" << '\n';
-                return;
-            }
             x_coord = x + i;
             y_coord = y;
+        }
+        if (!checkCoords(x_coord,y_coord)){
+            std::cerr<<"Ship can not be placed. Coordinates are out of bounds"<<'\n';
+            return;
         }
         if (!checkCollide(x_coord, y_coord,&ship)) {
             std::cerr << "Ships collide\n";
             return;
         }
-        setShipCoords(ship, x, y, is_vertical);
     }
+    setShipCoords(ship, x, y, is_vertical);
 }
 
 

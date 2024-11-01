@@ -131,24 +131,18 @@ void GameField::placeShip(Ship &ship, int x, int y, bool is_vertical) {
     int x_coord, y_coord;
     for (int i = 0; i < ship_length; i++) {
         if (is_vertical) {
-            if (!checkCoords(x,y + i)) {
-                throw ShipPlacementException();
-            }
             x_coord = x;
             y_coord = y + i;
         } else {
-            if (!checkCoords(x+i,y)) {
-                throw ShipPlacementException();
-            }
             x_coord = x + i;
             y_coord = y;
         }
-        if (!checkCollide(x_coord, y_coord,&ship)) {
+        if (!checkCoords(x_coord,y_coord) || !checkCollide(x_coord, y_coord,&ship)) {
             throw ShipPlacementException();
         }
-        ship.setIsVertical(is_vertical);
-        setShipCoords(ship, x, y, ship_length);
     }
+    ship.setIsVertical(is_vertical);
+    setShipCoords(ship, x, y, ship_length);
 }
 
 Cell& GameField::getCell(int x, int y){
